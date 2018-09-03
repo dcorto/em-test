@@ -9,7 +9,15 @@ Por otro lado, no he usado la imagen docker para los test unitarios. Asumiendo q
 está todo preparado para correr los test en local sin necesidad de Docker. En realidad al ejecutar el comando '/usr/local/bin/phpunit' me devuelve el error: ***Cannot open file "run.php"*** me imagino porque me faltá ajustar 
 el script para lanzar el run.php (crearlo y tal). Lo usaréis así internamente imagino, no he querido perder tiempo en ese detalle.
 
-Por último, no he usado el ORM de Doctrine, simplemente el DBAL Doctrine para mantener lo más simple posible la implementación.
+> Sobre MySQL
+
+No he usado el ORM de Doctrine, simplemente el DBAL Doctrine para mantener lo más simple posible la implementación.
+
+> Sobre Redis
+
+He usado el componente de cache de Symfony (https://symfony.com/doc/current/components/cache.html) que basicamente
+ya implementa el PSR-6 y PSR-16 sobre caching y te hace la vida más fácil :)
+
 
 ## How to setup and run this code
 
@@ -23,11 +31,11 @@ Por último, no he usado el ORM de Doctrine, simplemente el DBAL Doctrine para m
 
 ## TODO's
 
-> añadir cache de los resultados
-
 > separar el acceso a DB de la clase de API
 
 > usar Guzzle para comunicar con la API en lugar del get_file_contents
+
+> parametrizar la conexion a Redis
 
 > tests funcionales
 
