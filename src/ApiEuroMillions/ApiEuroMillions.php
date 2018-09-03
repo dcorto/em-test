@@ -3,6 +3,7 @@
 namespace App\ApiEuroMillions;
 
 use App\Interfaces\IResultApi;
+use App\Cache\Cache;
 use Doctrine\DBAL\Driver\Connection;
 
 class ApiEuroMillions implements IResultApi
@@ -12,15 +13,18 @@ class ApiEuroMillions implements IResultApi
     const ENDPOINT_FAILBACK = 'https://fakeapi.com/api/';
 
     private $databaseConnection;
+    private $cacheService;
 
     /**
      * ApiEuroMillions constructor.
      *
      * @param Connection $connection
+     * @param Cache $cache
      */
-    public function __construct(Connection $connection)
+    public function __construct(Connection $connection, Cache $cache)
     {
         $this->databaseConnection = $connection;
+        $this->cacheService = $cache;
     }
 
     /**
@@ -29,14 +33,22 @@ class ApiEuroMillions implements IResultApi
     public function getLastResults()
     {
         $results = null;
-        $resultsFromApi = $this->fetch();
 
-        if($this->checkIfExists(new \DateTime($resultsFromApi['date'])) ){
-            $results = $this->load();
+        $resultsFromCache = $this->cacheService->get('api.euromillions.results');
+
+        if(null === $resultsFromCache) {
+            $resultsFromApi = $this->fetch();
+
+            if ($this->checkIfExists(new \DateTime($resultsFromApi['date']))) {
+                $results = $this->load();
+            } else {
+                $this->save($resultsFromApi);
+                $results = $resultsFromApi;
+            }
+            $this->cacheService->put($results);
         }
-        else{
-            $this->save($resultsFromApi);
-            $results = $resultsFromApi;
+        else {
+            $results = $resultsFromCache;
         }
 
         return $results;

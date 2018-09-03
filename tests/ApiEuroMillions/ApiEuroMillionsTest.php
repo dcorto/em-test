@@ -11,12 +11,17 @@ class ApiEuroMillionsTest extends TestCase
 
     private $sut;
     private $connectionService;
+    private $cacheService;
 
     public function setUp()
     {
         $this->connectionService = $this->prophesize('Doctrine\DBAL\Driver\Connection');
+        $this->cacheService = $this->prophesize('App\Cache\Cache');
 
-        $this->sut = new ApiEuroMillions($this->connectionService->reveal());
+        $this->sut = new ApiEuroMillions(
+            $this->connectionService->reveal(),
+            $this->cacheService->reveal()
+        );
     }
 
     public function testGetLastResultsWithNoExistingData()
