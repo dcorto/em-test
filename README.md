@@ -1,3 +1,37 @@
+# David Corto - TEST
+
+He usado SF4 para montar la base. Creo que es la opción más directa por lo siguiente:
+
+- SF4 ya está pensando para micro servicios de base, ya no es como versiones anteriores que sí o sí tenias que instalar todo el framework
+- Por tiempo me resulta mucho más sencillo usar SF4 que empezar a tirar de PHP "a pelo". Pero es por velocidad. Con SF4 tengo gratis: DBAL, consola e injector de servicios.
+
+Por otro lado, no he usado la imagen docker para los test unitarios. Asumiendo que hay el php 7 instalado en local, ya 
+está todo preparado para correr los test en local sin necesidad de Docker. En realidad al ejecutar el comando '/usr/local/bin/phpunit' me devuelve el error: ***Cannot open file "run.php"*** me imagino porque me faltá ajustar 
+el script para lanzar el run.php (crearlo y tal). Lo usaréis así internamente imagino, no he querido perder tiempo en ese detalle.
+
+Por último, no he usado el ORM de Doctrine, simplemente el DBAL Doctrine para mantener lo más simple posible la implementación.
+
+## How to setup and run this code
+
+> copy file .env.dist to .env and configure DATABASE_URL (should be already done, just check all envars)
+
+> do a "***$ composer install***" for install all dependencies
+ 
+> run the command "***$ php bin/console euromillions:results***" for run the test
+
+> run "***$ ./bin/phpunit***" for run the tests 
+
+## TODO's
+
+> añadir cache de los resultados
+
+> separar el acceso a DB de la clase de API
+
+> usar Guzzle para comunicar con la API en lugar del get_file_contents
+
+> tests funcionales
+
+
 # Software developer test
 Una prueba para unirse al equipo de desarrollo de Euromillions.com
 
