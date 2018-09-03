@@ -66,7 +66,7 @@ class ApiEuroMillionsTest extends TestCase
             'result_regular_number_four' => '4',
             'result_regular_number_five' => '5',
             'result_lucky_number_one' => '6',
-            'result_regular_number_two' => '7',
+            'result_lucky_number_two' => '7',
             'jackpot_amount' => '123312',
             'jackpot_currency_name' => 'EUR',
             )
